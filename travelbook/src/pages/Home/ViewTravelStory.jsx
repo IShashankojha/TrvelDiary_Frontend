@@ -1,65 +1,72 @@
-import React from 'react';
-import moment from 'moment';
-import { MdAdd, MdDeleteOutline, MdUpdate, MdClose } from 'react-icons/md';
-import { GrMapLocation } from 'react-icons/gr';
+import React from "react";
+import moment from "moment";
+import { MdUpdate, MdDeleteOutline, MdClose } from "react-icons/md";
+import { GrMapLocation } from "react-icons/gr";
 
 const ViewTravelStory = ({ storyInfo, onClose, onEditClick, onDeleteClick }) => {
   return (
-    <div className="bg-white p-4 rounded shadow-md">
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
       <div className="relative">
-        <div className="flex items-center justify-end">
-          <div>
-            <div className="flex items-center gap-3 bg-cyan-50/50 p-2 rounded-lg">
-              <button className="btn-small" onClick={onEditClick}>
-                <MdUpdate className="text-lg" /> UPDATE STORY
-              </button>
-
-              <button className="btn-small btn-delete" onClick={onDeleteClick}>
-                <MdDeleteOutline className="text-lg" /> DELETE
-              </button>
-
-              <button className="" onClick={onClose}>
-                <MdClose className="text-xl text-slate-400" />
-              </button>
-            </div>
+        {/* Close, Edit, and Delete Buttons */}
+        <div className="flex justify-end mb-4">
+          <div className="flex items-center gap-3">
+            <button
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-md"
+              onClick={onEditClick}
+            >
+              <MdUpdate className="text-lg" /> Update Story
+            </button>
+            <button
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-red-500 hover:bg-red-600 rounded-md"
+              onClick={onDeleteClick}
+            >
+              <MdDeleteOutline className="text-lg" /> Delete
+            </button>
+            <button
+              className="flex items-center justify-center text-xl text-gray-500 hover:text-gray-700"
+              onClick={onClose}
+            >
+              <MdClose />
+            </button>
           </div>
         </div>
 
-        <div>
-          <div className="flex-1 flex flex-col gap-2 py-4">
-            <h1 className="text-2xl text-slate-950">{storyInfo?.title || ''}</h1>
+        {/* Story Details */}
+        <div className="flex flex-col gap-4">
+          {/* Story Title */}
+          <h1 className="text-2xl font-bold text-gray-900">
+            {storyInfo?.title || "Untitled Story"}
+          </h1>
 
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-xs text-slate-500">
-                {storyInfo?.visitedDate
-                  ? moment(storyInfo.visitedDate).format('Do MMM YYYY')
-                  : ''}
-              </span>
-
-              <div className="inline-flex items-center gap-2 text-[13px] text-cyan-600 bg-cyan-200/40 rounded px-2 py-1">
-                <GrMapLocation className="text-sm" />
-                {storyInfo?.visitedLocation?.length
-                  ? storyInfo.visitedLocation.map((item, index) =>
-                      index === storyInfo.visitedLocation.length - 1
-                        ? `${item}`
-                        : `${item}, `
-                    )
-                  : ''}
+          {/* Date and Location */}
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              {storyInfo?.visitedDate
+                ? moment(storyInfo.visitedDate).format("Do MMM YYYY")
+                : "Date not available"}
+            </span>
+            {storyInfo?.visitedLocation?.length > 0 && (
+              <div className="flex items-center gap-2 px-3 py-1 text-sm text-blue-600 bg-blue-100 rounded-md">
+                <GrMapLocation className="text-base" />
+                {storyInfo.visitedLocation.join(", ")}
               </div>
-            </div>
+            )}
+          </div>
 
-            {/* Display Story Image */}
+          {/* Image */}
+          {storyInfo?.imageUrl && (
             <img
-              src={storyInfo?.imageUrl}
-              alt="Selected"
-              className="w-full h-[300px] object-cover rounded-lg"
+              src={storyInfo.imageUrl}
+              alt="Story Visual"
+              className="w-full h-64 object-cover rounded-lg shadow-md"
             />
+          )}
 
-            <div className="mt-4">
-              <p className="text-sm text-slate-950 leading-6 text-justify whitespace-pre-line">
-                {storyInfo?.story || ''}
-              </p>
-            </div>
+          {/* Story Description */}
+          <div className="mt-4">
+            <p className="text-sm text-gray-800 leading-6 whitespace-pre-line">
+              {storyInfo?.story || "No description available for this story."}
+            </p>
           </div>
         </div>
       </div>
