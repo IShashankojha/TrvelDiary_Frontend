@@ -1,7 +1,6 @@
 [build]
-  base = "client" # Path to your frontend directory
-  publish = "build" # Path to the built frontend files
-  command = "npm run build" # Command to build your frontend
+  publish = "dist" # Vite outputs the built files to the 'dist' directory
+  command = "npm run build" # Command to build the Vite frontend
 
 [[redirects]]
   from = "/*"
