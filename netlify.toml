@@ -1,0 +1,14 @@
+[build]
+  base = "client" # Path to your frontend directory
+  publish = "build" # Path to the built frontend files
+  command = "npm run build" # Command to build your frontend
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
