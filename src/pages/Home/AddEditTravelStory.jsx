@@ -150,10 +150,10 @@ const AddEditTravelStory = ({
     };
 
     return (
-        <div className="bg-white p-4 rounded shadow-md w-full max-w-3xl mx-auto">
+        <div className="bg-white dark:bg-gray-900 text-black dark:text-white p-4 rounded shadow-md w-full max-w-3xl mx-auto">
             <div className="relative">
                 <div className="flex flex-col sm:flex-row items-center justify-between mb-4">
-                    <h5 className="text-xl font-medium text-slate-700">
+                    <h5 className="text-xl font-medium text-slate-700 dark:text-white">
                         {type === 'add' ? 'Add Travel Story' : 'Update Story'}
                     </h5>
                     <div className="flex items-center gap-2 mt-2 sm:mt-0">
@@ -170,10 +170,10 @@ const AddEditTravelStory = ({
 
                 <div className="flex flex-col gap-4">
                     <div>
-                        <label className="input-label">Title</label>
+                        <label className="input-label text-gray-700 dark:text-gray-200">Title</label>
                         <input
                             type="text"
-                            className="input-box"
+                            className="input-box bg-white dark:bg-gray-800 text-black dark:text-white border dark:border-gray-600"
                             placeholder="A day at the Great Wall"
                             value={title}
                             onChange={({ target }) => setTitle(target.value)}
@@ -187,9 +187,9 @@ const AddEditTravelStory = ({
                         handleDeleteImg={handleDeleteStoryImg}
                     />
                     <div>
-                        <label className="input-label">Story</label>
+                        <label className="input-label text-gray-700 dark:text-gray-200">Story</label>
                         <textarea
-                            className="input-box h-28"
+                            className="input-box h-28 bg-white dark:bg-gray-800 text-black dark:text-white border dark:border-gray-600"
                             placeholder="Write your travel story here..."
                             value={story}
                             onChange={({ target }) => setStory(target.value)}

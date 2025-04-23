@@ -45,7 +45,7 @@ const Home = () => {
         localStorage.clear();
         navigate("/login");
       } else {
-        console.error("Failed to fetch user info:", error);
+        toast.error("Failed to fetch user info. Please try again.");
       }
     }
   };
@@ -57,7 +57,7 @@ const Home = () => {
         setAllStories(response.data.stories);
       }
     } catch (error) {
-      console.error("Failed to fetch travel stories:", error);
+      toast.error("Failed to fetch travel stories. Please try again.");
     }
   };
 
@@ -87,7 +87,7 @@ const Home = () => {
         }
       }
     } catch (error) {
-      console.error("Failed to update favorite status:", error);
+      toast.error("Failed to update favorite status. Please try again.");
     }
   };
 
@@ -96,12 +96,12 @@ const Home = () => {
     try {
       const response = await axiosInstance.delete(`/delete-story/${storyId}`);
       if (response.data && !response.data.error) {
-        toast.error("Story Deleted Successfully");
+        toast.success("Story Deleted Successfully");
         setOpenViewModal((prevState) => ({ ...prevState, isShown: false }));
         getAllTravelStories();
       }
     } catch (error) {
-      console.error("An unexpected error occurred. Please try again.");
+      toast.error("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -115,7 +115,7 @@ const Home = () => {
         setAllStories(response.data.stories);
       }
     } catch (error) {
-      console.error("An unexpected error occurred. Please try again.");
+      toast.error("Failed to search stories. Please try again.");
     }
   };
 
@@ -150,7 +150,7 @@ const Home = () => {
         }
       }
     } catch (error) {
-      console.error("An unexpected error occurred. Please try again.");
+      toast.error("Failed to filter stories by date. Please try again.");
     }
   };
 
