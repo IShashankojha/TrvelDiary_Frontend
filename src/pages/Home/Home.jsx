@@ -17,11 +17,21 @@ import { getEmptyCardMessage, getEmptyCardImg } from "../../utils/helper";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  // 👇 Redirect to login if token doesn't exist
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login", { replace: true });
+    }
+  }, [navigate]);
+
   const [userInfo, setUserInfo] = useState(null);
   const [allStories, setAllStories] = useState([]);
   const [SearchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState("");
   const [dateRange, setDateRange] = useState({ from: null, to: null });
+  const [loading, setLoading] = useState(true);
 
   const [openAddEditModel, setOpenAddEditModal] = useState({
     isShown: false,
@@ -47,6 +57,8 @@ const Home = () => {
       } else {
         toast.error("Failed to fetch user info. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -160,8 +172,11 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getAllTravelStories();
-    getUserInfo();
+    const token = localStorage.getItem("token");
+    if (token) {
+      getUserInfo();
+      getAllTravelStories();
+    }
   }, []);
 
   return (
@@ -205,7 +220,7 @@ const Home = () => {
             )}
           </div>
           <div className="w-full md:w-[30%]">
-            <div className="bg-white border border-slate-200 shadow-lg rounded-lg">
+            <div className="bg-white dark:bg-gray-900 text-black dark:text-white border border-slate-200 dark:border-gray-700 shadow-lg rounded-lg">
               <div className="p-3">
                 <DayPicker
                   captionLayout="dropdown-buttons"
@@ -213,12 +228,25 @@ const Home = () => {
                   selected={dateRange}
                   onSelect={handleDayClick}
                   pagedNavigation
+                  className="!bg-white dark:!bg-gray-900 dark:!text-white"
+                  classNames={{
+                    caption: "text-black dark:text-white",
+                    head: "text-slate-600 dark:text-slate-300",
+                    head_cell: "text-xs font-semibold px-2 py-1",
+                    row: "flex justify-center mt-2",
+                    day: "w-9 h-9 text-sm rounded-full hover:bg-sky-100 dark:hover:bg-sky-700 dark:text-white",
+                    day_selected: "bg-sky-500 text-white hover:bg-sky-600 dark:bg-sky-500 dark:hover:bg-sky-600",
+                    day_today: "border border-sky-500 dark:border-sky-400",
+                    nav_button: "text-sky-600 hover:bg-sky-100 dark:text-sky-300 dark:hover:bg-sky-700",
+                  }}
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Add / Edit Modal */}
       <Modal
         isOpen={openAddEditModel.isShown}
         onRequestClose={handleModalClose}
@@ -235,6 +263,8 @@ const Home = () => {
           getAllTravelStories={getAllTravelStories}
         />
       </Modal>
+
+      {/* View Modal */}
       <Modal
         isOpen={openViewModel.isShown}
         onRequestClose={() =>
@@ -251,23 +281,10 @@ const Home = () => {
           onClose={() =>
             setOpenViewModal({ isShown: false, data: null })
           }
-          onEditClick={() => {
-            setOpenViewModal({ isShown: false, data: null });
-            handleEdit(openViewModel.data || null);
-          }}
-          onDeleteClick={() =>
-            deleteTravelStory(openViewModel.data || null)
-          }
+          deleteTravelStory={deleteTravelStory}
         />
       </Modal>
-      <button
-        className="w-16 h-16 flex items-center justify-center rounded-full bg-primary hover:bg-cyan-400 fixed right-5 bottom-5 sm:right-10 sm:bottom-10"
-        onClick={() =>
-          setOpenAddEditModal({ isShown: true, type: "add", data: null })
-        }
-      >
-        <MdAdd className="text-[32px] text-white" />
-      </button>
+
       <ToastContainer />
     </>
   );
