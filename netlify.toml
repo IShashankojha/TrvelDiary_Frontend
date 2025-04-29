@@ -2,12 +2,15 @@
   command = "npm run build"
   publish = "build"
 
+# Redirect all routes to index.html (SPA fix)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
 
+# Optional: Set caching headers for better performance
 [[headers]]
   for = "/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "no-cache"
