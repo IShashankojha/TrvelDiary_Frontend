@@ -1,6 +1,6 @@
 [build]
-  publish = "dist" # Vite outputs the built files to the 'dist' directory
-  command = "npm run build" # Command to build the Vite frontend
+  command = "npm run build"
+  publish = "build"
 
 [[redirects]]
   from = "/*"
