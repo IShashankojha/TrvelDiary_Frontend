@@ -48,7 +48,7 @@ const AddEditTravelStory = ({
                 imageUrl = imgUploadRes.imageUrl || ''
             }
 
-            const response = await axiosInstance.post('/Add-TravelStory', {
+            const response = await axiosInstance.post('https://traveldiary-back.onrender.com/Add-TravelStory', {
                 title,
                 story,
                 imageUrl,
@@ -87,7 +87,7 @@ const AddEditTravelStory = ({
                 postData.imageUrl = imageUrl
             }
 
-            const response = await axiosInstance.put(`/update-story/${storyId}`, postData)
+            const response = await axiosInstance.put(`https://traveldiary-back.onrender.com/update-story/${storyId}`, postData)
 
             if (response.data && response.data.story) {
                 toast.success('Story Updated Successfully')

@@ -33,7 +33,7 @@ const SignUp = () => {
 
     try {
       const response = await axiosInstance.post(
-        `https://traveldiary-udd9.onrender.com/create-account`,
+        `https://traveldiary-back.onrender.com/create-account`,
         { fullName: name, email, password }
       );
 

@@ -26,7 +26,7 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axiosInstance.post(`https://traveldiary-udd9.onrender.com/login`, { email, password });
+      const response = await axiosInstance.post(`https://traveldiary-back.onrender.com/login`, { email, password });
 
       if (response.data && response.data.accessToken) {
         setError(null); // Clear error state
