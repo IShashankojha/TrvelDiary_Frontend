@@ -1,5 +1,4 @@
 import axiosInstance from "./axiosInst";
-
 const uploadImage = async (imageFile) => {
     if (!imageFile) {
         throw new Error("No image file provided for upload.");
