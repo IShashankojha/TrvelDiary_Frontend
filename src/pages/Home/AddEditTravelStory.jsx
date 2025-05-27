@@ -53,7 +53,7 @@ const AddEditTravelStory = ({
                 story,
                 imageUrl,
                 visitedLocation,
-                visitedDate: visitedDate || Date.now(),
+                visitedDate: visitedDate ? moment(visitedDate).valueOf() : Date.now(),
             })
 
             if (response.data && response.data.story) {
@@ -78,7 +78,7 @@ const AddEditTravelStory = ({
                 story,
                 imageUrl,
                 visitedLocation,
-                visitedDate: visitedDate || Date.now(),
+                visitedDate: visitedDate ? moment(visitedDate).valueOf() : Date.now(),
             }
 
             if (typeof storyImg === 'object') {
@@ -87,7 +87,7 @@ const AddEditTravelStory = ({
                 postData.imageUrl = imageUrl
             }
 
-            const response = await axiosInstance.put(`https://traveldiary-back.onrender.com/update-story/${storyId}`, postData)
+            const response = await axiosInstance.put(`https://traveldiary-back.onrender.com/edit-Story/${storyId}`, postData)
 
             if (response.data && response.data.story) {
                 toast.success('Story Updated Successfully')
