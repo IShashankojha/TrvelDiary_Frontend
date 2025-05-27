@@ -8,7 +8,7 @@ const uploadImage = async (imageFile) => {
     formData.append('image', imageFile);
 
     try {
-        const response = await axiosInstance.post('https://traveldiary-back.onrender.com/image-upload', formData, {
+        const response = await axiosInstance.post('https://traveldiary-backend.onrender.com/image-upload', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data', // Set header for file upload
             },

@@ -46,7 +46,7 @@ const Home = () => {
 
   const getUserInfo = async () => {
     try {
-      const response = await axiosInstance.get(`https://traveldiary-back.onrender.com/get-user`);
+      const response = await axiosInstance.get(`https://traveldiary-backend.onrender.com/get-user`);
       if (response.data?.user) {
         setUserInfo(response.data.user);
       }
@@ -64,7 +64,7 @@ const Home = () => {
 
   const getAllTravelStories = async () => {
     try {
-      const response = await axiosInstance.get(`https://traveldiary-back.onrender.com/get-all-TravelStories`);
+      const response = await axiosInstance.get(`https://traveldiary-backend.onrender.com/get-all-TravelStories`);
       if (response.data?.stories) {
         setAllStories(response.data.stories);
       }
@@ -85,7 +85,7 @@ const Home = () => {
     const storyId = storyData._id;
     try {
       const response = await axiosInstance.put(
-        `https://traveldiary-back.onrender.com/update-is-favourite/${storyId}`,
+        `https://traveldiary-backend.onrender.com/update-is-favourite/${storyId}`,
         { isFavourite: !storyData.isFavourite }
       );
       if (response.data?.story) {
@@ -106,7 +106,7 @@ const Home = () => {
   const deleteTravelStory = async (data) => {
     const storyId = data._id;
     try {
-      const response = await axiosInstance.delete(`https://traveldiary-back.onrender.com/delete-story/${storyId}`);
+      const response = await axiosInstance.delete(`https://traveldiary-backend.onrender.com/delete-story/${storyId}`);
       if (response.data && !response.data.error) {
         toast.success("Story Deleted Successfully");
         setOpenViewModal((prevState) => ({ ...prevState, isShown: false }));
@@ -119,7 +119,7 @@ const Home = () => {
 
   const onSearchStory = async (query) => {
     try {
-      const response = await axiosInstance.get(`https://traveldiary-back.onrender.com/search`, {
+      const response = await axiosInstance.get(`https://traveldiary-backend.onrender.com/search`, {
         params: { query },
       });
       if (response.data?.stories) {
@@ -153,7 +153,7 @@ const Home = () => {
       const endDate = day.to ? moment(day.to).endOf("day").valueOf() : null;
 
       if (startDate && endDate) {
-        const response = await axiosInstance.get(`https://traveldiary-back.onrender.com/travel-stories/filter`, {
+        const response = await axiosInstance.get(`https://traveldiary-backend.onrender.com/travel-stories/filter`, {
           params: { startDate, endDate },
         });
         if (response.data?.stories) {
